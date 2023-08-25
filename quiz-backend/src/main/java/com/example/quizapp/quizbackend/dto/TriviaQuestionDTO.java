@@ -2,6 +2,8 @@ package com.example.quizapp.quizbackend.dto;
 
 import lombok.Data;
 
+import java.util.List;
+
 
 @Data
 public class TriviaQuestionDTO {
@@ -9,4 +11,6 @@ public class TriviaQuestionDTO {
     private String type;
     private String difficulty;
     private String question;
+    private List<String> answerOptions; // Merged correct and incorrect answers
+
 }
