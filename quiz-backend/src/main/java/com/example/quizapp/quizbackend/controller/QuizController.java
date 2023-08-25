@@ -1,26 +1,43 @@
 package com.example.quizapp.quizbackend.controller;
 
-import com.example.quizapp.quizbackend.model.Answer;
-import com.example.quizapp.quizbackend.model.Question;
-import lombok.RequiredArgsConstructor;
+import com.example.quizapp.quizbackend.dto.TriviaQuestionDTO;
+import com.example.quizapp.quizbackend.model.TriviaQuestion;
+import com.example.quizapp.quizbackend.service.TriviaQuestionService;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @RestController
-@RequiredArgsConstructor
 public class QuizController {
+    private final TriviaQuestionService triviaQuestionService;
+
+    @Autowired
+    public QuizController(TriviaQuestionService triviaQuestionService) {
+        this.triviaQuestionService = triviaQuestionService;
+    }
 
     @GetMapping("/questions")
-    public Question getQuestions() {
-        String[] sampleOptions = {"Option 1", "Option 2", "Option 3", "Option 4"};
-        return new Question("Sample question?", sampleOptions);
+    public List<TriviaQuestion> getTriviaQuestions() {
+        return triviaQuestionService.getTriviaQuestions(5);
     }
 
-    @PostMapping("/answers")
-    public Answer checkAnswers(@RequestBody Answer answer) {
-        boolean[] sampleCorrect = {true, false, true, false}; // Replace with actual correct answers
-        return new Answer(sampleCorrect);
-    }
+//    @GetMapping("/questions")
+//    public List<TriviaQuestionDTO> getTriviaQuestions() {
+//        List<TriviaQuestionDTO> questionDTOs = new ArrayList<>();
+//        List<TriviaQuestion> triviaQuestions = triviaQuestionService.getTriviaQuestions(5);
+//        for (TriviaQuestion question : triviaQuestions) {
+//            TriviaQuestionDTO dto = new TriviaQuestionDTO();
+//            dto.setCategory(question.getCategory());
+//            dto.setType(question.getType());
+//            dto.setDifficulty(question.getDifficulty());
+//            dto.setQuestion(question.getQuestion());
+//            questionDTOs.add(dto);
+//        }
+//        return questionDTOs;
+//    }
 }

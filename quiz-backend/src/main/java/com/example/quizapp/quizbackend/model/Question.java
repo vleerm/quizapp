@@ -1,14 +1,11 @@
 package com.example.quizapp.quizbackend.model;
 
-
-import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
+import java.util.List;
 @Data
-@AllArgsConstructor
-@NoArgsConstructor
 public class Question {
-    private String question;
-    private String[] options;
+    private String questionText;
+    private List<Answer> answers;
+
 }
